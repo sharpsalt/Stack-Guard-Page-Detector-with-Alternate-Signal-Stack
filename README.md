@@ -2,7 +2,7 @@
 
 This project demonstrates a critical low-level systems programming concept: handling fatal stack overflows gracefully using an **Alternate Signal Stack** in C.
 
-## 🧠 Concepts Explained
+## Concepts Explained
 
 To truly understand this project, let's break down the core components involved:
 
@@ -42,7 +42,7 @@ In our project, we use this exact mechanism to safely catch the stack overflow a
 
 ---
 
-## 🚀 How to Build and Run
+##  How to Build and Run
 
 ### Prerequisites
 - A Linux/UNIX environment
@@ -88,7 +88,7 @@ When you run the program, you should see output similar to this:
 
 ---
 
-## ⚠️ Important Considerations for Signal Handlers
+##  Important Considerations for Signal Handlers
 
 1. **Async-Signal-Safety:** Inside a signal handler (especially for asynchronous signals or hardware faults), you are heavily restricted in what C standard library functions you can call. You cannot use functions that use global locks (like `malloc`, `free`, or `printf`). Doing so can cause deadlocks. This is why in `detector.c`, we use the POSIX `write()` system call directly to print our error messages instead of `printf`. We also use `_exit()` instead of `exit()` to terminate without flushing stdio buffers that might be corrupted or locked.
 2. **Recovery from Stack Overflow:** While we successfully *detect* the stack overflow, actually recovering from it and continuing execution of the main program is extraordinarily complex and usually unsafe. The program's state is corrupted, and the stack pointer is invalid. The most robust action upon catching a guard page violation is to log the error and terminate.
