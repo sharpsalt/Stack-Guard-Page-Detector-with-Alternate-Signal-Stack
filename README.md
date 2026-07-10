@@ -32,7 +32,7 @@ In our project, we use this exact mechanism to safely catch the stack overflow a
 
 ---
 
-## 🛠️ Code Architecture
+##  Code Architecture
 
 * **`detector.c`**: The primary C source file. Contains:
   * `setup_alternate_stack_and_signal()`: Allocates the alternate stack and configures `sigaltstack` and `sigaction`.
